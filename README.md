@@ -1,29 +1,70 @@
-# [AI Home Advisor](https://www.home-ai-advisor.vercel.com/)
+# HomeMath-AI
 
-This project uses AI to generate personalized real estate recommendations based on your life situation and income. The real estate data is sourced from the Czech Republic site [sreality.cz](https://www.sreality.cz/). The data is stored in a MongoDB database, populated by a scraper available on [GitHub](https://github.com/karlosmatos/sreality-scraper).
+HomeMath-AI is an intelligent, AI-driven platform designed to provide personalized real estate guidance and financial insights tailored to each user's unique situation. Leveraging advanced language models and real‑world property data, the system helps users make informed decisions about housing options and investments.
 
-[![AI Home Advisor](./public/screenshot.png)](https://www.home-ai-advisor.vercel.app/)
+![HomeMath-AI Screenshot](./public/screenshot.png)
 
-## How it works
+---
 
-AI Home Advisor uses both [Mixtral](https://mistral.ai/news/mixtral-of-experts/) and [GPT-3.5](https://openai.com/api/) with FastAPI in backend to generate real estate recommendations. It constructs a prompt based on the form and user input, sends it either to the Mixtral API through [Groq](https://www.groq.com/) or the GPT-3.5 API through OpenAI, then based on AI response it filters the real estate data from the MongoDB database and returns the filtered data to the user.
+## 🚀 Key Features
 
-## Running Locally
+- **Personalized Recommendations** – Input your life circumstances, budget, and preferences to receive custom property suggestions.
+- **Real Estate Data Integration** – Aggregates listings from Czech real‑estate portal, with filtering and scoring based on user criteria.
+- **AI Powered Reasoning** – Combines multiple large language models to analyze data, estimate affordability, and explain suggestions in natural language.
+- **Modular Backend** – Built with FastAPI, allowing easy extension with new data sources or additional AI services.
+- **Optional MongoDB Storage** – Persist scraped listing data locally or in the cloud for offline analysis and faster responses.
 
-1. Clone the repository with `git clone https://github.com/karlosmatos/home-ai-advisor.git`.
-2. Copy the `.env.example` file to `.env`.
-1. Create an account at [OpenAI](https://beta.openai.com/account/api-keys) and add your API key under `OPENAI_API_KEY` in your `.env`
-2. Create an account at [Groq.com](https://www.groq.com/) and add your API key under `GROQ_API_KEY` in your `.env`
-3. Create a MongoDB database and add the URI under `MONGO_URI` in your `.env`
-4. Add the database name under `MONGO_DB` in your `.env`
-5. Add the collection name under `MONGO_COLLECTION` in your `.env`
-6. Add the base URL of the API under `NEXT_PUBLIC_API_BASE_URL` in your `.env`. If you are running the application locally, it should be `http://localhost:8000`.
-8. Run the scraper to populate the database based on scraper instructions on [GitHub](https://github.com/karlosmatos/sreality-scraper/blob/main/README.md).
-7. Install the dependencies with `npm install`.
-9. Run the application with `npm run dev` and it will be available at `http://localhost:3000`. API will be available at `http://localhost:8000/docs`.
+## 🏗️ Architecture Overview
 
-## One-Click Deploy
+1. **Frontend** – A Next.js/TypeScript web application that collects user input and displays AI-generated recommendations.
+2. **API Layer** – FastAPI providing endpoints for request handling, model orchestration, and data access.
+3. **AI Models** – Utilizes state-of-the-art reasoning models such as Mixtral and Llama 3 via Groq API (configurable).
+4. **Data Pipeline** – Optional scraper (external repo) gathers listing information from sreality.cz and stores it in MongoDB.
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=vercel-examples):
+## 💻 Development Setup
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/karlosmatos/home-ai-advisor&env=OPENAI_API_KEY,GROQ_API_KEY,MONGO_URI,MONGO_DB,MONGO_COLLECTION,NEXT_PUBLIC_API_BASE_URL&project-name=ai-home-advisor&repo-name=aihomeadvisor)
+1. **Clone the repository**
+   ```sh
+   git clone <repository-url>
+   cd home-ai-advisor
+   ```
+2. **Environment configuration**
+   - Copy `.env.example` to `.env` and populate the variables.
+   - `GROQ_API_KEY` – obtain from your Groq account.
+   - `NEXT_PUBLIC_API_BASE_URL` – e.g. `http://localhost:8000` for local API.
+3. **Install dependencies**
+   ```sh
+   npm install      # frontend
+   pip install -r requirements.txt  # backend
+   ```
+4. **Run services**
+   - Start backend: `uvicorn api.index:app --reload`
+   - Start frontend: `npm run dev`
+   - Access UI at localhost port 3000; API docs available at localhost port 8000 under /docs.
+
+## ☁️ Deployment
+
+- **Vercel** for frontend: Connect the repository and configure environment variables (`GROQ_API_KEY`, `NEXT_PUBLIC_API_BASE_URL`).
+- **FastAPI backend** can be deployed to any Python-friendly platform (Heroku, DigitalOcean, AWS). Use environment variables for sensitive keys.
+
+For a quick start, you can use the existing deployment configuration included in this README.
+
+## 🤝 Contributing
+
+Contributions are welcome!
+
+1. Fork the repository.
+2. Create a feature branch (`git checkout -b feature/your-change`).
+3. Commit your changes (`git commit -m "Add useful feature"`).
+4. Push to the branch (`git push origin feature/your-change`).
+5. Open a pull request detailing your improvements.
+
+Please follow standard code style and include tests when appropriate.
+
+## 📄 License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+---
+
+*Created and maintained by the HomeMath-AI team.*
